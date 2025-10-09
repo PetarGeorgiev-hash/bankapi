@@ -1,36 +1,55 @@
 package api
 
 import (
+	"fmt"
+
 	db "github.com/PetarGeorgiev-hash/bankapi/db/sqlc"
+	"github.com/PetarGeorgiev-hash/bankapi/token"
+	"github.com/PetarGeorgiev-hash/bankapi/util"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 )
 
 type Server struct {
+	config util.Config
 	store  db.Store
+	token  token.Maker
 	router *gin.Engine
 }
 
-func NewServer(store db.Store) *Server {
-	server := &Server{store: store}
-	router := gin.Default()
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("can't create token maker %w", err)
+	}
+
+	server := &Server{store: store, token: tokenMaker, config: config}
 
 	v, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		v.RegisterValidation("currency", validCurrency)
 	}
 
+	server.SetUpRouter()
+	return server, nil
+}
+
+func (server *Server) SetUpRouter() {
+	router := gin.Default()
+
 	router.POST("/users", server.createUser)
+	router.POST("/users/login", server.loginUser)
 
-	router.POST("/accounts", server.createAccount)
-	router.GET("/accounts/:id", server.getAccount)
-	router.GET("/accounts", server.listAccounts)
+	authRoutes := router.Group("/").Use(authMiddleware(server.token))
 
-	router.POST("/transfers", server.createTransfer)
+	authRoutes.POST("/accounts", server.createAccount)
+	authRoutes.GET("/accounts/:id", server.getAccount)
+	authRoutes.GET("/accounts", server.listAccounts)
 
+	authRoutes.POST("/transfers", server.createTransfer)
 	server.router = router
-	return server
+
 }
 
 func (server *Server) Start(address string) error {

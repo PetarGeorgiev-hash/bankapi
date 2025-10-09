@@ -24,7 +24,7 @@ func (p *PasetoMaker) CreateToken(username string, duration time.Duration) (stri
 }
 
 // VeriftToken implements Maker.
-func (p *PasetoMaker) VeriftToken(token string) (*Payload, error) {
+func (p *PasetoMaker) VerifyToken(token string) (*Payload, error) {
 	payload := &Payload{}
 
 	err := p.paseto.Decrypt(token, p.symmetricKey, payload, nil)

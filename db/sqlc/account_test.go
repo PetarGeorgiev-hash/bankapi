@@ -69,13 +69,15 @@ func TestDelteAccount(t *testing.T) {
 }
 
 func TestListAccounts(t *testing.T) {
+	var lastAccount Account
 	for i := 0; i < 10; i++ {
-		createRandomAccount(t)
+		lastAccount = createRandomAccount(t)
 	}
 
-	accounts, err := testQueries.ListAccounts(context.Background())
+	accounts, err := testQueries.ListAccounts(context.Background(), lastAccount.Owner)
 	require.NoError(t, err)
 	for _, account := range accounts {
 		require.NotEmpty(t, account)
+		require.Equal(t, lastAccount.Owner, account.Owner)
 	}
 }

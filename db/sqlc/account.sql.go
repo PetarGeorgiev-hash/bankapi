@@ -113,11 +113,12 @@ func (q *Queries) GetAccountForUpdate(ctx context.Context, id int64) (Account, e
 const listAccounts = `-- name: ListAccounts :many
 SELECT id, owner, balance, currency, created_at
 FROM accounts
+WHERE owner = $1
 ORDER BY id
 `
 
-func (q *Queries) ListAccounts(ctx context.Context) ([]Account, error) {
-	rows, err := q.db.QueryContext(ctx, listAccounts)
+func (q *Queries) ListAccounts(ctx context.Context, owner string) ([]Account, error) {
+	rows, err := q.db.QueryContext(ctx, listAccounts, owner)
 	if err != nil {
 		return nil, err
 	}

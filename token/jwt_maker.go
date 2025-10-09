@@ -15,7 +15,7 @@ type JWTMaker struct {
 }
 
 // VeriftToken implements Maker.
-func (j *JWTMaker) VeriftToken(token string) (*Payload, error) {
+func (j *JWTMaker) VerifyToken(token string) (*Payload, error) {
 	keyFunc := func(token *jwt.Token) (interface{}, error) {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
@@ -61,5 +61,3 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 		secretKey: secretKey,
 	}, nil
 }
-
-

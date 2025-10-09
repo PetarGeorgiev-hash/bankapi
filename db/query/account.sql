@@ -16,6 +16,7 @@ UPDATE;
 -- name: ListAccounts :many
 SELECT *
 FROM accounts
+WHERE owner = $1
 ORDER BY id;
 -- name: UpdateAccount :one
 UPDATE accounts
