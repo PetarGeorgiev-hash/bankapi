@@ -1,6 +1,6 @@
 module github.com/PetarGeorgiev-hash/bankapi
 
-go 1.24.5
+go 1.25.2
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
