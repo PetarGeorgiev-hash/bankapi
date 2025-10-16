@@ -48,6 +48,10 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:latest
 
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --region eu-central-1 --name bankapi-cluster
+
       - name: Deploy image to AWS EKS
         run: |
           kubectl apply -f eks/aws-auth.yaml
