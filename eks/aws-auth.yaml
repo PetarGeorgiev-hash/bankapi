@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::205930641651:role/gh-actions-role-bankapi
+      username: gh-actions-role-bankapi
+      groups:
+        - system:masters
