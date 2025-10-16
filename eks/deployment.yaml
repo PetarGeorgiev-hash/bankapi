@@ -5,7 +5,7 @@ metadata:
   labels:
     app: bankapi
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: bankapi
