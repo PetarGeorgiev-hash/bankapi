@@ -13,6 +13,9 @@ import (
 	"github.com/PetarGeorgiev-hash/bankapi/pb"
 	_ "github.com/PetarGeorgiev-hash/bankapi/swagger/statik"
 	"github.com/PetarGeorgiev-hash/bankapi/util"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
@@ -31,6 +34,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Can't connect to database", err)
 	}
+
+	runDbMigration(config.MigrationURL, config.DBSource)
 
 	store := db.NewStore(conn)
 	go runGatewayServer(config, store)
@@ -117,4 +122,17 @@ func runGatewayServer(config util.Config, store db.Store) {
 		log.Fatal("Can't start HTTP Gateway server", err.Error())
 
 	}
+}
+
+func runDbMigration(url string, dbSource string) {
+	migration, err := migrate.New(url, dbSource)
+	if err != nil {
+		log.Fatal("Can't create new migrate instance ", err.Error())
+	}
+
+	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
+		log.Fatal("Can't run migrate up ", err.Error())
+	}
+
+	log.Println("DB migrated successfully")
 }
