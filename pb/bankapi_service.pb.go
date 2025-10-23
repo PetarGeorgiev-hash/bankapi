@@ -25,25 +25,31 @@ var File_bankapi_service_proto protoreflect.FileDescriptor
 
 const file_bankapi_service_proto_rawDesc = "" +
 	"\n" +
-	"\x15bankapi_service.proto\x12\x02pb\x1a\x1cgoogle/api/annotations.proto\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto2\xbe\x01\n" +
+	"\x15bankapi_service.proto\x12\x02pb\x1a\x1cgoogle/api/annotations.proto\x1a\x15rpc_create_user.proto\x1a\x14rpc_login_user.proto\x1a\x15rpc_update_user.proto2\x97\x02\n" +
 	"\x0eBankAPIService\x12W\n" +
 	"\n" +
-	"CreateUser\x12\x15.pb.CreateUserRequest\x1a\x16.pb.CreateUserResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/create_user\x12S\n" +
+	"CreateUser\x12\x15.pb.CreateUserRequest\x1a\x16.pb.CreateUserResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/create_user\x12W\n" +
+	"\n" +
+	"UpdateUser\x12\x15.pb.UpdateUserRequest\x1a\x16.pb.UpdateUserResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*2\x0f/v1/update_user\x12S\n" +
 	"\tLoginUser\x12\x14.pb.LoginUserRequest\x1a\x15.pb.LoginUserResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/login_userB*Z(github.com/PetarGeorgiev-hash/bankapi/pbb\x06proto3"
 
 var file_bankapi_service_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),  // 0: pb.CreateUserRequest
-	(*LoginUserRequest)(nil),   // 1: pb.LoginUserRequest
-	(*CreateUserResponse)(nil), // 2: pb.CreateUserResponse
-	(*LoginUserResponse)(nil),  // 3: pb.LoginUserResponse
+	(*UpdateUserRequest)(nil),  // 1: pb.UpdateUserRequest
+	(*LoginUserRequest)(nil),   // 2: pb.LoginUserRequest
+	(*CreateUserResponse)(nil), // 3: pb.CreateUserResponse
+	(*UpdateUserResponse)(nil), // 4: pb.UpdateUserResponse
+	(*LoginUserResponse)(nil),  // 5: pb.LoginUserResponse
 }
 var file_bankapi_service_proto_depIdxs = []int32{
 	0, // 0: pb.BankAPIService.CreateUser:input_type -> pb.CreateUserRequest
-	1, // 1: pb.BankAPIService.LoginUser:input_type -> pb.LoginUserRequest
-	2, // 2: pb.BankAPIService.CreateUser:output_type -> pb.CreateUserResponse
-	3, // 3: pb.BankAPIService.LoginUser:output_type -> pb.LoginUserResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	1, // 1: pb.BankAPIService.UpdateUser:input_type -> pb.UpdateUserRequest
+	2, // 2: pb.BankAPIService.LoginUser:input_type -> pb.LoginUserRequest
+	3, // 3: pb.BankAPIService.CreateUser:output_type -> pb.CreateUserResponse
+	4, // 4: pb.BankAPIService.UpdateUser:output_type -> pb.UpdateUserResponse
+	5, // 5: pb.BankAPIService.LoginUser:output_type -> pb.LoginUserResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -56,6 +62,7 @@ func file_bankapi_service_proto_init() {
 	}
 	file_rpc_create_user_proto_init()
 	file_rpc_login_user_proto_init()
+	file_rpc_update_user_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
