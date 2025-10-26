@@ -10,10 +10,10 @@ It provides functionality for managing users, accounts, and money transfers, wit
 - 🧩 Clean and modular architecture in **Go**
 - 🗃️ **PostgreSQL** database with **SQLC** for type-safe queries
 - 🌐 **REST** and **gRPC** APIs
-- 🔒 Secure **JWT authentication** and token management
-- 📬 Email service for notifications
+- 🔒 Secure **JWT and PASETO authentication with refresh token**
+- 📬 Email service for verification with Redis
 - 🧰 **Docker Compose** for easy development setup
-- 🧪 Ready for **unit and integration testing**
+- 🧪 Ready for **unit testing**
 - 🏗️ Simple to extend with new banking features
 
 ---
@@ -77,7 +77,3 @@ REST API
 Once the server is running, you can access the Swagger documentation at:
 
 http://localhost:8080/swagger/index.html
-
-```
-
-```
