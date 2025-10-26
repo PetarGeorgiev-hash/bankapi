@@ -22,11 +22,10 @@ It provides functionality for managing users, accounts, and money transfers, wit
 
 ### 1️⃣ Clone the repository
 
-````bash
+```bash
 git clone https://github.com/PetarGeorgiev-hash/bankapi.git
 cd bankapi
-
----
+```
 
 ### 2️⃣ Configure environment variables
 
@@ -43,21 +42,34 @@ SMTP_HOST=smtp.example.com
 SMTP_USER=example@example.com
 SMTP_PASSWORD=yourpassword
 SMTP_PORT=587
-
+```
 
 Make sure your PostgreSQL database is running and accessible.
 
 🐳 Option 1: Run with Docker
-docker-compose up --build
 
+```bash
+docker-compose up --build
+```
 
 💻Option 2: Run locally
-make server or go run main.go
+
+```bash
+make server
+```
+
+or
+
+```bash
+go run main.go
+```
 
 To Run tests
 To ensure everything is working correctly, run:
-make test
 
+```bash
+make test
+```
 
 📜 API Documentation
 REST API
@@ -65,4 +77,7 @@ REST API
 Once the server is running, you can access the Swagger documentation at:
 
 http://localhost:8080/swagger/index.html
-````
+
+```
+
+```
