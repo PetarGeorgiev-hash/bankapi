@@ -6,14 +6,23 @@ services:
       dockerfile: Dockerfile
     environment:
       - DB_SOURCE=postgresql://root:secret@postgres:5432/simple_bank?sslmode=disable
+      - REDIS_ADDRESS=redis:6379
     ports:
       - "8080:8080"
+      - "9090:9090"
     depends_on:
         postgres:
           condition: service_healthy
-          
+        redis:
+          condition: service_started
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"  
   postgres:
     image: postgres:18-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=secret
@@ -23,3 +32,5 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+volumes:
+  db_data:
